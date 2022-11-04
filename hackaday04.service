@@ -1,0 +1,11 @@
+[Unit]
+Description=gunicorn3 for hackaday-04
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/hackaday/day04_chat
+ExecStart=/bin/gunicorn3 -e SCRIPT_NAME=/hackaday/chat --bind 0.0.0.0:8003 app:app
+
+[Install]
+WantedBy=multi-user.target

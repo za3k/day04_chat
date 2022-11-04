@@ -1,0 +1,143 @@
+/* -- This specific Hack-A-Day project -- */
+/*.chat div {
+    border: 2px solid grey;
+}*/
+
+.chat {
+    height: 200px;
+    border-radius: 20px;
+    border: 1px solid lightgray;
+    box-shadow: 10px 10px 10px 10px gray;
+    margin: 20px 20px 40px 20px;
+    padding: 10px;
+}
+
+.message-box {
+    overflow-y: hidden;
+}
+
+.user-box {
+    overflow-y: auto;
+}
+
+.flex-vert {
+    display: flex;
+    flex-direction: column;
+}
+.flex-horiz {
+    display: flex;
+    flex-direction: row;
+}
+.flex-horiz > *, .flex-vert > * {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.btn, .chat-bottom, label.nogrow {
+    flex-grow: 0;
+}
+
+.message-notme > * {
+    align: right;
+}
+
+.user-container {
+    max-width: 200px;
+}
+
+.plaintext {
+    white-space: pre-wrap;
+}
+
+.message-me {
+	background-color: lightyellow;
+}
+
+.message-notme {
+	background-color: lightblue;
+}
+
+/* Thanks to https://codepen.io/Founts/pen/AJyVOr for the chat bubbles */
+
+.text-box {
+	margin: 40px;
+	display: inline-block;
+	/*position: relative;*/
+	height: auto;
+}
+
+.border {
+	border: 8px solid #666;
+}
+
+/*Right triangle, placed bottom left side slightly in*/
+.tri-right.border.btm-left-in:before {
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: 30px;
+	right: auto;
+	top: auto;
+	bottom: -40px;
+	border: 20px solid;
+	border-color: #666 transparent transparent #666;
+}
+.tri-right.btm-left-in:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: 38px;
+	right: auto;
+	top: auto;
+	bottom: -20px;
+	border: 12px solid;
+	border-color: lightyellow transparent transparent lightyellow;
+}
+
+/*Right triangle, placed bottom right side slightly in*/
+.tri-right.border.btm-right-in:before {
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: auto;
+	right: 30px;
+	bottom: -40px;
+	border: 20px solid;
+	border-color: #666 #666 transparent transparent;
+}
+.tri-right.btm-right-in:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: auto;
+	right: 38px;
+	bottom: -20px;
+	border: 12px solid;
+	border-color: lightyellow lightyellow transparent transparent;
+}
+
+
+/* -- All Hack-A-Day projects -- */
+.about {
+    white-space: pre-wrap;
+}
+.footer {
+    background-color: rgba(0,0,0,0.2);
+    margin-top: 20px;
+}
+.footer ul {
+    list-style: none;
+    padding-left: 5px;
+}
+
+.navbar-brand-link a {
+    color: #777;
+}
+.navbar-brand-link a:hover {
+    color: #000;
+    text-decoration: none;
+}
