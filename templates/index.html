@@ -16,7 +16,7 @@
         </div>
         <div class="chat-bottom flex-horiz">
         <div class="compose flex-horiz" style="{% if not current_user.is_authenticated %}display: none;{% endif %}">
-            <input id="message" class="input-box"/>
+            <input id="message" class="input-box" placeholder="type your message here"/>
             <input class="btn btn-primary" type="button" value="Send" id="sendbutton"/>
         </div>
     {% if current_user.is_authenticated %}

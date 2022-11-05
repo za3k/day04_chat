@@ -1,7 +1,7 @@
 #!/bin/python3
 import flask, flask_login
 from datetime import datetime,timedelta
-import random
+import collections, random
 from base import app,load_info,ajax
 
 # -- Info for every Hack-A-Day project --
@@ -60,6 +60,9 @@ def index():
 @ajax("/ajax/connect")
 def ajax_connect(json):
     me = Peer(display_name=json["displayName"], color=json["color"], username=json["username"])
+    global recent_broadcasts
+    for message in recent_broadcasts:
+        me.receive_message(message)
     return {
         "id": me.id,
         "peers": Peer.get_all(),
@@ -69,10 +72,11 @@ def ajax_connect(json):
 @ajax("/ajax/send")
 def ajax_send(json):
     sender = Peer.find(json["id"])
+    if not sender: return { "success": False }, 401
     receiver = peers.find(json["peerId"])
     message = json["message"]
-    sender.was_seen()
     if receiver:
+        sender.was_seen()
         receiver.receive_message(message)
         return {
             success: True,
@@ -84,10 +88,13 @@ def ajax_send(json):
             "messages": sender.get_messages(),
         }
 
+recent_broadcasts = collections.deque([], 10)
 @ajax("/ajax/broadcast")
 def ajax_broadcast(json):
     sender = Peer.find(json["id"])
+    if not sender: return { "success": False }, 401
     message = json["message"]
+    recent_broadcasts.append(message)
     sender.was_seen()
     for peer in Peer.peers.values():
         peer.receive_message(message)
@@ -100,6 +107,7 @@ def ajax_broadcast(json):
 def ajax_keepalive(json):
     id = json["id"]
     me = Peer.find(id)
+    if not me: return { "success": False }, 401
     me.was_seen()
     return {
         "peers": Peer.get_all(),

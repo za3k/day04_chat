@@ -175,20 +175,29 @@ class ServerTalk {
 window.onload = (event) => {
     const server = window.server = new ServerTalk($("#messagebox"), $("#userbox"));
     const name = $("#username");
+    const message = $("#message");
+
     if (window.loggedIn) {
         server.setUsername(name.val()); 
         server.connect(); 
     } else {
-        $("#connect").on('click', () => {
+        const register_guest = () => {
             const username = name.val() || random_username();
             server.setUsername(username);
             server.connect(); 
             $("#guestlogin").hide();
             $(".compose").show();
+            message.focus();
+        };
+        
+        $("#connect").on('click', register_guest);
+        $("#username").on('keyup', (event) => {
+            if (event.which == 13) register_guest()
         });
+        name.focus();
     }
-    const message = $("#message");
-    $("#sendbutton").on('click', () => {
+
+    const send = () => {
         const m = message.val();
         console.log("sending message:", m);
         if (!m) {
@@ -197,5 +206,9 @@ window.onload = (event) => {
         }
         message.val("");
         server.say(m);
+    };
+    $("#sendbutton").on('click', send);
+    message.on('keyup', (event) => {
+        if (event.which == 13) send();
     });
 };
