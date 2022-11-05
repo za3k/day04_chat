@@ -6,6 +6,6 @@ This is online chatroom.
 
 ![Screenshot](screenshot.png)
 
-Demo available at [here](https://tilde.za3k.com/hackaday/hackchat).
+Demo available at [here](https://tilde.za3k.com/hackaday/chat).
 
 Source available on [github](https://github.com/za3k/day04_chat).
