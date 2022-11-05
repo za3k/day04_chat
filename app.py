@@ -15,11 +15,13 @@ load_info({
 
 class Peer():
     peers = {}
-    def __init__(self, display_name):
+    def __init__(self, color, username, display_name):
         self.display_name = display_name
         self.id = "client"+str(random.randint(10000,99999))
         self.lastseen = datetime.now()
         self.messages = []
+        self.color = color
+        self.username = username
         Peer.peers[self.id] = self
     def receive_message(self, message):
         self.messages.append(message)
@@ -32,6 +34,8 @@ class Peer():
         return {
             "id": self.id,
             "displayName": self.display_name,
+			"username": self.username,
+            "color": self.color,
         }
     @classmethod
     def find(cls, id):
@@ -55,7 +59,7 @@ def index():
 
 @ajax("/ajax/connect")
 def ajax_connect(json):
-    me = Peer(display_name=json["displayName"])
+    me = Peer(display_name=json["displayName"], color=json["color"], username=json["username"])
     return {
         "id": me.id,
         "peers": Peer.get_all(),

@@ -1,5 +1,7 @@
 // Adapted closely from https://webrtc.github.io/samples/src/content/datachannel/messaging/main.js
 function random_username() { return `guest${Math.floor(Math.random()*1000)}`; }
+availableColors = ["lightblue", "pink", "lightgreen"];
+function random_color() { return availableColors[Math.floor(Math.random()*availableColors.length)]; }
 
 class ServerTalk {
     constructor(messagebox, userbox) {
@@ -9,28 +11,40 @@ class ServerTalk {
         this.userbox = userbox;
         this.displayName = random_username();
         this.peerDivs = {};
+		this.color = random_color();
     }
 
+	setColor(color) {
+		this.color = color;
+	}
+
     setUsername(username) {
+		this.username = username;
         if (window.loggedIn && username == "zachary") {
             this.displayName = "✬"+username;
         } else if (window.loggedIn) {
             this.displayName = "☆"+username;
         } else {
-            this.displayName = "~" + username;
+            this.displayName = username;
         }
     }
 
     makeMessageDiv(message) {
-		let extraClass="";
-        //let extraClass = "message-notme tri-right border btm-left-in text-box";
-        //if (message.from == this.displayName) extraClass = "message-me tri-right border btm-right-in text-box";
-        
-        return $(`<div class="message message-${message.type} ${extraClass}"><div class="author">${message.from}</div><div class="message-text">${message.message}</div></div>`);
+        if (message.from == this.displayName) {
+        	let extraClass = "message-me";
+        	return $(`<div class="message message-${message.type} ${extraClass}"><div class="author">${message.from}</div><div class="message-text">${message.message}</div></div>`);
+		} else {
+        	let extraClass = "message-notme";
+        	return $(`<div class="message-outer"><div class="spacer"></div><div class="message message-${message.type} ${extraClass}" style="background-color: ${message.color}"><div class="author">${message.from}</div><div class="message-text">${message.message}</div></div></div>`);
+		}
     }
 
     makePeerDiv(peer) {
-        return $(`<div class="user">${peer.displayName}</div>`);
+        if (peer.id == this.id) {
+            return $(`<div class="user" style="background-color: lightyellow;">${peer.displayName}</div>`);
+        } else {
+            return $(`<div class="user" style="background-color: ${peer.color}">${peer.displayName}</div>`);
+        }
     }
 
     async ajax(url, data, success) {
@@ -48,6 +62,8 @@ class ServerTalk {
     async connect() { this.ajax("/ajax/connect",
         {
             displayName: this.displayName,
+			username: this.username,
+			color: this.color,
         },
         (result) => {
             this._onReceiveResponse(result);
@@ -64,6 +80,7 @@ class ServerTalk {
     async emote(message) {
         return await this.broadcast({
             from: this.displayName,
+            color: this.color,
             message: message,
             type: "emote"
         });
@@ -71,6 +88,7 @@ class ServerTalk {
     async say(message) {
         return await this.broadcast({
             from: this.displayName,
+            color: this.color,
             message: message,
             type: "say"
         });

@@ -4,7 +4,7 @@
 }*/
 
 .chat {
-    height: 200px;
+    height: 500px;
     border-radius: 20px;
     border: 1px solid lightgray;
     box-shadow: 10px 10px 10px 10px gray;
@@ -12,13 +12,15 @@
     padding: 10px;
 }
 
+.chat-top {
+	overflow-y: hidden;
+	height: 100%;
+}
+
 .message-box {
     overflow-y: hidden;
 }
 
-.user-box {
-    overflow-y: auto;
-}
 
 .flex-vert {
     display: flex;
@@ -52,92 +54,61 @@
 .message-me {
 	background-color: lightyellow;
 }
+.message-notme {
+	background-color: pink;
+}
+
+.message-outer {
+	display: flex;
+	flex-direction: row;
+}
+.message-outer > .spacer {
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+
+.message {
+	border: 2px solid #666;
+	border-radius: 8px;
+	padding: 8px;
+	width: fit-content;
+}
+.message-box > * {
+	margin: 10px 10px 10px 0;
+}
+
+.author {
+	font-variant: small-caps;
+	display: inline-block;
+}
+.author {
+	margin-right: 5px;
+}
+
+.message-text {
+	display: inline-block;
+}
 
 .message-notme {
 	background-color: lightblue;
 }
 
-/* Thanks to https://codepen.io/Founts/pen/AJyVOr for the chat bubbles */
-
-.text-box {
-	margin: 40px;
-	display: inline-block;
-	/*position: relative;*/
-	height: auto;
+.input-box {
+	border-radius: 0 0 0 10px;
+	border-right-width: 0;
 }
 
-.border {
-	border: 8px solid #666;
+.btn {
+	border-radius: 0 0 10px 0;
 }
 
-/*Right triangle, placed bottom left side slightly in*/
-.tri-right.border.btm-left-in:before {
-	content: ' ';
-	position: absolute;
-	width: 0;
-	height: 0;
-	left: 30px;
-	right: auto;
-	top: auto;
-	bottom: -40px;
-	border: 20px solid;
-	border-color: #666 transparent transparent #666;
-}
-.tri-right.btm-left-in:after{
-	content: ' ';
-	position: absolute;
-	width: 0;
-	height: 0;
-	left: 38px;
-	right: auto;
-	top: auto;
-	bottom: -20px;
-	border: 12px solid;
-	border-color: lightyellow transparent transparent lightyellow;
+.user-header {
+    font-variant: small-caps;
+    font-size: x-large;
+    text-align: center;
 }
 
-/*Right triangle, placed bottom right side slightly in*/
-.tri-right.border.btm-right-in:before {
-	content: ' ';
-	position: absolute;
-	width: 0;
-	height: 0;
-	left: auto;
-	right: 30px;
-	bottom: -40px;
-	border: 20px solid;
-	border-color: #666 #666 transparent transparent;
-}
-.tri-right.btm-right-in:after{
-	content: ' ';
-	position: absolute;
-	width: 0;
-	height: 0;
-	left: auto;
-	right: 38px;
-	bottom: -20px;
-	border: 12px solid;
-	border-color: lightyellow lightyellow transparent transparent;
-}
-
-
-/* -- All Hack-A-Day projects -- */
-.about {
-    white-space: pre-wrap;
-}
-.footer {
-    background-color: rgba(0,0,0,0.2);
-    margin-top: 20px;
-}
-.footer ul {
-    list-style: none;
-    padding-left: 5px;
-}
-
-.navbar-brand-link a {
-    color: #777;
-}
-.navbar-brand-link a:hover {
-    color: #000;
-    text-decoration: none;
+.user-box {
+    overflow-y: auto;
+    font-variant:small-caps;
 }

@@ -10,13 +10,13 @@
         <div class="chat-top flex-horiz">
             <div id="messagebox" class="message-box"></div>
             <div class="user-container">
-                Users
+                <div class="user-header">Users</div>
                 <div id="userbox" class="user-box"></div>
             </div>
         </div>
         <div class="chat-bottom flex-horiz">
         <div class="compose flex-horiz" style="{% if not current_user.is_authenticated %}display: none;{% endif %}">
-            <input id="message" class="message-box"/>
+            <input id="message" class="input-box"/>
             <input class="btn btn-primary" type="button" value="Send" id="sendbutton"/>
         </div>
     {% if current_user.is_authenticated %}
@@ -24,8 +24,8 @@
     {% else %}
         <div id="guestlogin" class="flex-horiz">
         <div class="flex-horiz">
-            <label for="username" class="nogrow">Username</label>
-            <input placeholder="guest123" id="username"/>
+            <!--<label for="username" class="nogrow">Username</label>-->
+            <input placeholder="username, such as guest123" id="username" class="input-box"/>
         </div>
         <input class="btn btn-primary" type="button" value="Connect" id="connect"/>
         </div>
