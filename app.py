@@ -6,7 +6,7 @@ from base import app,load_info,ajax
 
 # -- Info for every Hack-A-Day project --
 load_info({
-    "project_name": "Hack Chat",
+    "project_name": "Hack-A-Chat",
     "source_url": "https://github.com/za3k/day04_chat",
     "subdir": "/hackaday/chat"
 })
